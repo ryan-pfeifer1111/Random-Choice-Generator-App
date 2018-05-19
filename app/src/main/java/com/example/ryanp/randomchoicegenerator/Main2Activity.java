@@ -7,8 +7,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 
@@ -88,6 +90,14 @@ public class Main2Activity extends AppCompatActivity {
         eraseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                for(int i = 0; i < list.getCount();i++){
+                    View elem = list.getChildAt(i);
+                    CheckBox box = (CheckBox) findViewById(R.id.checkbox);
+                    if(box.isChecked()){
+                        choices.remove(i);
+                    }
+                }
+                adapter.notifyDataSetChanged();
                 //HANDLE THE BIG RED DELETE BUTTON HERE
                 //ALSO FOR LONG PRESS, DELETE ALL ELEMENTS
                 //DELETES SHOULD BRING UP A DIALOGUE BOX
