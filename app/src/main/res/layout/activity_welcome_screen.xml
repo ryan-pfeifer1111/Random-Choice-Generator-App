@@ -9,8 +9,8 @@
 
     <ImageView
         android:id="@+id/welcomeLogo"
-        android:layout_width="113dp"
-        android:layout_height="112dp"
+        android:layout_width="239dp"
+        android:layout_height="223dp"
         android:layout_marginBottom="11dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
@@ -21,5 +21,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@color/colorPrimaryDark" />
+        app:srcCompat="@drawable/rgi_icon2" />
 </android.support.constraint.ConstraintLayout>

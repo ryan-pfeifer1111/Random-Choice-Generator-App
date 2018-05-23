@@ -1,6 +1,10 @@
 package com.example.ryanp.randomchoicegenerator;
 
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.os.PersistableBundle;
+import android.preference.PreferenceManager;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -8,14 +12,18 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Main2Activity extends AppCompatActivity {
 
@@ -26,6 +34,8 @@ public class Main2Activity extends AppCompatActivity {
     private ArrayAdapter<String> adapter;
     private Button submit;
     private TextView output;
+    private SharedPreferences prefs;
+    private SharedPreferences.Editor prefsEdit;
 
     private void addChoice(String choice){
         choices.add(choice);
@@ -60,11 +70,25 @@ public class Main2Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-
         choices = new ArrayList<String>();
-        choices.add("test");
-        choices.add("help");
-        choices.add("please");
+        //////////////////////////SHARED PREFERENCES FETCHING////////////////////////////////////////////////
+        prefs = PreferenceManager.getDefaultSharedPreferences(Main2Activity.this);
+        prefsEdit = prefs.edit();
+        Set<String> sharedSet = prefs.getStringSet("choices", null);
+        choices = new ArrayList<String>();
+        try {
+            Object[] sharedArr = sharedSet.toArray();
+            for (int k = 0; k < sharedSet.size(); k++) {
+                choices.add(sharedArr[k].toString());
+            }
+        }
+        catch (Exception e){
+            Toast.makeText(Main2Activity.this, e.toString(), Toast.LENGTH_SHORT).show();
+        }
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        //choices.add("test");
+        //choices.add("help");
+        //choices.add("please");
         addButton = (FloatingActionButton) findViewById(R.id.addButton);
         eraseButton = (FloatingActionButton) findViewById(R.id.eraseButton);
         list = (ListView) findViewById(R.id.itemList);
@@ -155,5 +179,20 @@ public class Main2Activity extends AppCompatActivity {
                 output.setText(choice);
             }
         });
+
+    }
+
+    @Override
+    protected void onPause() {
+        ///////////////////////////SHARED PREFERENCES SAVING////////////////////
+        Set<String> sharedSet = new HashSet<String>();
+        for(int i = 0; i < choices.size(); i++){
+            sharedSet.add(choices.get(i));
+        }
+        prefsEdit.putStringSet("choices", sharedSet);
+        prefsEdit.commit();
+        ////////////////////////////////////////////////////////////////////////
+
+        super.onPause();
     }
 }
