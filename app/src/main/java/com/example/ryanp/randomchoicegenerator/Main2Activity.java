@@ -174,9 +174,11 @@ public class Main2Activity extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int rand = (int)(Math.random() * choices.size());
-                String choice = choices.get(rand);
-                output.setText(choice);
+                if(choices.size() > 0) {
+                    int rand = (int) (Math.random() * choices.size());
+                    String choice = choices.get(rand);
+                    output.setText(choice);
+                }
             }
         });
 
