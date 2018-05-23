@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -24,13 +25,26 @@ public class Main2Activity extends AppCompatActivity {
     private ListView list;
     private ArrayAdapter<String> adapter;
     private Button submit;
+    private TextView output;
 
     private void addChoice(String choice){
         choices.add(choice);
         adapter.notifyDataSetChanged();
     }
 
-    private void removeChoice(int index){
+    private void clearCheckBoxes(){
+        View elem;
+        CheckBox cb;
+        for(int i = 0; i < list.getCount();i++){
+            //elem = list.getAdapter().getView(i, null, null);
+            //cb = (CheckBox) elem.findViewById(i);
+            cb = (CheckBox) list.getChildAt(i).findViewById(R.id.checkbox);
+            cb.setChecked(false);
+        }
+        //adapter.notifyDataSetChanged();
+    }
+
+   /* private void removeChoice(int index){ //NEVER USED, SAFE TO DELETE
         ArrayList<String> newlist = new ArrayList<String>();
         for(int i = 0; i < choices.size(); i++){
             if( i != index){
@@ -39,7 +53,7 @@ public class Main2Activity extends AppCompatActivity {
         }
         choices = newlist;
         adapter.notifyDataSetChanged();
-    }
+    }*/
 
 
     @Override
@@ -57,6 +71,7 @@ public class Main2Activity extends AppCompatActivity {
         adapter = new ArrayAdapter<String>(Main2Activity.this, R.layout.my_listview_layout, R.id.listview_layout, choices);
         list.setAdapter(adapter);
         submit = (Button) findViewById(R.id.submitButton);
+        output = (TextView) findViewById(R.id.outputChoice);
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,7 +87,6 @@ public class Main2Activity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         //handle the input text here
                         addChoice(input.getText().toString());
-                        //submit.setText(input.getText().toString());
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -90,19 +104,56 @@ public class Main2Activity extends AppCompatActivity {
         eraseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ArrayList<Integer> indicesToRemove = new ArrayList<Integer>();
+                View elem;
+                CheckBox cb;
                 for(int i = 0; i < list.getCount();i++){
-                    View elem = list.getChildAt(i);
-                    CheckBox box = (CheckBox) findViewById(R.id.checkbox);
-                    if(box.isChecked()){
-                        choices.remove(i);
+                    //elem = list.getAdapter().getView(i, null, null);
+                    //cb = (CheckBox) elem.findViewById(i);
+                    cb = (CheckBox) list.getChildAt(i).findViewById(R.id.checkbox);
+                    if(cb.isChecked()){
+                        indicesToRemove.add(i);
                     }
                 }
+                for(int j = 0; j < indicesToRemove.size(); j++){
+                    choices.remove(j);
+                }
+                clearCheckBoxes();
                 adapter.notifyDataSetChanged();
-                //HANDLE THE BIG RED DELETE BUTTON HERE
-                //ALSO FOR LONG PRESS, DELETE ALL ELEMENTS
-                //DELETES SHOULD BRING UP A DIALOGUE BOX
             }
         });
 
+        eraseButton.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(Main2Activity.this);
+                builder.setTitle("Clear all choices?");
+
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        choices.clear();
+                        adapter.notifyDataSetChanged();
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                builder.show();
+                return true;
+            }
+        });
+
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int rand = (int)(Math.random() * choices.size());
+                String choice = choices.get(rand);
+                output.setText(choice);
+            }
+        });
     }
 }

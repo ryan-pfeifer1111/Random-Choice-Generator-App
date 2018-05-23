@@ -11,49 +11,38 @@
         android:id="@+id/eraseButton"
         android:layout_width="61dp"
         android:layout_height="62dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="304dp"
-        android:layout_marginRight="304dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
         android:clickable="true"
         app:backgroundTint="@android:color/holo_red_dark"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.983"
+        app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@android:drawable/ic_menu_add" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/addButton"
         android:layout_width="61dp"
         android:layout_height="62dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.983"
         app:srcCompat="@android:drawable/ic_menu_add" />
 
     <Button
         android:id="@+id/submitButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="104dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="104dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"
         android:text="Generate Choice"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.112"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/itemList" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.908" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline2"
@@ -84,7 +73,6 @@
         app:layout_constraintGuide_begin="365dp" />
 
     <ListView
-        android:scrollIndicators="right"
         android:id="@+id/itemList"
         android:layout_width="337dp"
         android:layout_height="424dp"
@@ -97,6 +85,7 @@
         android:divider="@color/colorPrimaryDark"
         android:dividerHeight="2dp"
         android:footerDividersEnabled="true"
+        android:scrollIndicators="right"
         android:scrollbarAlwaysDrawVerticalTrack="true"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toStartOf="@+id/guideline5"
@@ -104,5 +93,24 @@
         app:layout_constraintStart_toStartOf="@+id/guideline4"
         app:layout_constraintTop_toTopOf="@+id/guideline3"
         app:layout_constraintVertical_bias="0.96" />
+
+    <TextView
+        android:id="@+id/outputChoice"
+        android:layout_width="152dp"
+        android:layout_height="41dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:background="#919191"
+        android:gravity="center_horizontal"
+        android:scrollbars="horizontal"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
