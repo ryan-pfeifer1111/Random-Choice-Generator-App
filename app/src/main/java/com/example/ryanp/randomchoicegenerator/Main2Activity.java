@@ -140,7 +140,11 @@ public class Main2Activity extends AppCompatActivity {
                     }
                 }
                 for(int j = 0; j < indicesToRemove.size(); j++){
-                    choices.remove(j);
+                    int index = indicesToRemove.get(j);
+                    choices.remove(index);
+                    for(int i = j; i < indicesToRemove.size(); i++) {
+                        indicesToRemove.set(i, indicesToRemove.get(i) - 1);
+                    }
                 }
                 clearCheckBoxes();
                 adapter.notifyDataSetChanged();

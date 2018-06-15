@@ -6,17 +6,17 @@
 
     <CheckBox
         android:id="@+id/checkbox"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:buttonTint="@color/colorPrimaryDark"
         android:paddingBottom="15dp"
-        android:paddingTop="10dp"
         android:paddingLeft="5dp"
         android:paddingRight="20dp"
-        android:buttonTint="@color/colorPrimaryDark"
-        android:layout_width="30dp"
-        android:layout_height="30dp" />
+        android:paddingTop="10dp" />
 
     <TextView
         android:id="@+id/listview_layout"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/colorPrimaryDark"
         android:gravity="start"
         android:textSize="30sp"
         android:textStyle="bold"
